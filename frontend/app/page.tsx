@@ -3,6 +3,7 @@
 import { Navbar } from "@/components/Navbar";
 import { BetsTable } from "@/components/BetsTable";
 import { Leaderboard } from "@/components/Leaderboard";
+import { Target, Bot, Link, Globe, Clock } from "lucide-react";
 
 export default function HomePage() {
   return (
@@ -110,7 +111,7 @@ export default function HomePage() {
               </button>
             </div>
             <div className="glass-card p-8 text-center">
-              <div className="text-4xl mb-4">🎯</div>
+              <Target className="w-12 h-12 mx-auto mb-4 text-accent" />
               <div className="text-lg font-medium mb-2">No active bets yet</div>
               <p className="text-muted-foreground mb-4">
                 Be the first to create a bet!
@@ -126,28 +127,28 @@ export default function HomePage() {
             <h2 className="text-2xl font-bold mb-6 text-center">Why P2P Bets?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="space-y-2">
-                <div className="text-2xl">🤖</div>
+                <Bot className="w-8 h-8" />
                 <div className="font-bold">AI Resolution</div>
                 <p className="text-sm text-muted-foreground">
                   No manual verification needed. AI fetches real-world data and decides the winner.
                 </p>
               </div>
               <div className="space-y-2">
-                <div className="text-2xl">🔗</div>
+                <Link className="w-8 h-8" />
                 <div className="font-bold">Trustless</div>
                 <p className="text-sm text-muted-foreground">
                   Smart contract holds stakes. Winner gets paid automatically. No counterparty risk.
                 </p>
               </div>
               <div className="space-y-2">
-                <div className="text-2xl">🌐</div>
+                <Globe className="w-8 h-8" />
                 <div className="font-bold">Web3 Native</div>
                 <p className="text-sm text-muted-foreground">
                   Built on GenLayer. Connect wallet, place bets, win - all on-chain.
                 </p>
               </div>
               <div className="space-y-2">
-                <div className="text-2xl">⏰</div>
+                <Clock className="w-8 h-8" />
                 <div className="font-bold">Any Topic</div>
                 <p className="text-sm text-muted-foreground">
                   Sports, crypto, politics, entertainment - bet on anything with a verifiable outcome.
