@@ -54,13 +54,13 @@ Respond ONLY with JSON in this exact format, nothing else:
         self, question: str, outcomes: list[str], deadline: u256, stake: u256
     ) -> str:
         if len(outcomes) < 2:
-            raise Exception("Need at least 2 outcomes")
+            raise gl.vm.UserError("Need at least 2 outcomes")
 
         if stake <= 0:
-            raise Exception("Stake must be positive")
+            raise gl.vm.UserError("Stake must be positive")
 
         if deadline <= block.timestamp:
-            raise Exception("Deadline must be in the future")
+            raise gl.vm.UserError("Deadline must be in the future")
 
         sender = gl.message.sender_address
 
@@ -88,21 +88,21 @@ Respond ONLY with JSON in this exact format, nothing else:
     @gl.public.write
     def accept_bet(self, bet_id: str, chosen_outcome: str) -> None:
         if bet_id not in self.bets:
-            raise Exception("Bet not found")
+            raise gl.vm.UserError("Bet not found")
 
         bet = self.bets[bet_id]
 
         if bet.accepted:
-            raise Exception("Bet already accepted")
+            raise gl.vm.UserError("Bet already accepted")
 
         if bet.creator == gl.message.sender_address:
-            raise Exception("Cannot bet against yourself")
+            raise gl.vm.UserError("Cannot bet against yourself")
 
         if chosen_outcome not in bet.outcomes:
-            raise Exception("Invalid outcome")
+            raise gl.vm.UserError("Invalid outcome")
 
         if block.timestamp >= bet.deadline:
-            raise Exception("Bet deadline passed")
+            raise gl.vm.UserError("Bet deadline passed")
 
         bet.accepted = True
         bet.acceptor = gl.message.sender_address
@@ -111,18 +111,18 @@ Respond ONLY with JSON in this exact format, nothing else:
     @gl.public.write
     def resolve_bet(self, bet_id: str) -> None:
         if bet_id not in self.bets:
-            raise Exception("Bet not found")
+            raise gl.vm.UserError("Bet not found")
 
         bet = self.bets[bet_id]
 
         if not bet.accepted:
-            raise Exception("Bet not yet accepted")
+            raise gl.vm.UserError("Bet not yet accepted")
 
         if bet.resolved:
-            raise Exception("Bet already resolved")
+            raise gl.vm.UserError("Bet already resolved")
 
         if block.timestamp < bet.deadline:
-            raise Exception("Deadline not passed yet")
+            raise gl.vm.UserError("Deadline not passed yet")
 
         winning_outcome = self._resolve_outcome(bet)
 
