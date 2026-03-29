@@ -11,9 +11,9 @@ class Bet:
     id: str
     creator: Address
     question: str
-    outcomes: list[str]
-    deadline: int
-    stake: int
+    outcomes: DynArray[str]
+    deadline: u256
+    stake: u256
     accepted: bool
     acceptor: Address
     acceptor_outcome: str
@@ -51,7 +51,7 @@ Respond ONLY with JSON in this exact format, nothing else:
 
     @gl.public.write
     def create_bet(
-        self, question: str, outcomes: list[str], deadline: int, stake: int
+        self, question: str, outcomes: list[str], deadline: u256, stake: u256
     ) -> str:
         if len(outcomes) < 2:
             raise Exception("Need at least 2 outcomes")
@@ -70,7 +70,7 @@ Respond ONLY with JSON in this exact format, nothing else:
             id=bet_id,
             creator=sender,
             question=question,
-            outcomes=outcomes,
+            outcomes=DynArray(outcomes),
             deadline=deadline,
             stake=stake,
             accepted=False,
@@ -143,7 +143,7 @@ Respond ONLY with JSON in this exact format, nothing else:
             "id": bet.id,
             "creator": bet.creator.hex(),
             "question": bet.question,
-            "outcomes": bet.outcomes,
+            "outcomes": list(bet.outcomes),
             "deadline": bet.deadline,
             "stake": bet.stake,
             "accepted": bet.accepted,
