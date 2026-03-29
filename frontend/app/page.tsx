@@ -11,17 +11,17 @@ export default function HomePage() {
       <Navbar />
 
       {/* Main Content - Padding to account for fixed navbar */}
-      <main className="flex-grow pt-20 pb-12 px-4 md:px-6 lg:px-8">
+      <main className="relative flex-grow pt-20 pb-12 px-4 md:px-6 lg:px-8">
+        {/* Grid Background Effects - Full Page */}
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:64px_64px] -z-10" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#fab6f5]/8 via-transparent to-transparent -z-10" />
+        <div className="pointer-events-none absolute top-0 left-1/4 w-px h-48 bg-gradient-to-b from-[#fab6f5]/35 to-transparent -z-10" />
+        <div className="pointer-events-none absolute top-0 right-1/4 w-px h-32 bg-gradient-to-b from-[#fab6f5]/20 to-transparent -z-10" />
         
         <div className="max-w-7xl mx-auto">
           
           {/* Hero Section */}
-          <div className="relative text-center mb-12 animate-fade-in">
-            {/* Grid Background Effects */}
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:64px_64px] -z-10" />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#fab6f5]/8 via-transparent to-transparent -z-10" />
-            <div className="pointer-events-none absolute top-0 left-1/4 w-px h-48 bg-gradient-to-b from-[#fab6f5]/35 to-transparent -z-10" />
-            <div className="pointer-events-none absolute top-0 right-1/4 w-px h-32 bg-gradient-to-b from-[#fab6f5]/20 to-transparent -z-10" />
+          <div className="text-center mb-12 animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
               Live on GenLayer Testnet
