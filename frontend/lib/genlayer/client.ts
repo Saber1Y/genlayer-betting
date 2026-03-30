@@ -140,14 +140,26 @@ export async function getCurrentChainId(): Promise<string | null> {
 }
 
 /**
- * Add GenLayer network to MetaMask
+ * Request accounts from MetaMask (requires approval)
  */
-export async function addGenLayerNetwork(): Promise<void> {
+export async function requestAccounts(): Promise<string[]> {
   const provider = getEthereumProvider();
 
   if (!provider) {
     throw new Error("MetaMask is not installed");
   }
+
+  try {
+    const accounts = await provider.request({
+      method: "eth_requestAccounts",
+    });
+    return accounts || [];
+  } catch (error: any) {
+    // Don't throw, just return empty array to prevent infinite loops
+    console.log("Request accounts failed:", error?.message || error);
+    return [];
+  }
+}
 
   try {
     await provider.request({
