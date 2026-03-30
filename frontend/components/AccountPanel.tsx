@@ -97,7 +97,7 @@ export function AccountPanel() {
     return (
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogTrigger asChild>
-          <Button variant="gradient" disabled={isLoading}>
+          <Button variant="gradient" onClick={() => setIsModalOpen(true)}>
             <User className="w-4 h-4 mr-2" />
             Connect Wallet
           </Button>
