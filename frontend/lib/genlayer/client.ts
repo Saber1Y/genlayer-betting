@@ -103,6 +103,7 @@ export async function getAccounts(): Promise<string[]> {
   const provider = getEthereumProvider();
 
   if (!provider) {
+    console.log("No Ethereum provider found");
     return [];
   }
 
@@ -110,9 +111,9 @@ export async function getAccounts(): Promise<string[]> {
     const accounts = await provider.request({
       method: "eth_accounts",
     });
-    return accounts;
-  } catch (error) {
-    console.error("Error getting accounts:", error);
+    return accounts || [];
+  } catch (error: any) {
+    console.log("Could not get accounts:", error?.message || "Unknown error");
     return [];
   }
 }
@@ -132,8 +133,8 @@ export async function getCurrentChainId(): Promise<string | null> {
       method: "eth_chainId",
     });
     return chainId;
-  } catch (error) {
-    console.error("Error getting chain ID:", error);
+  } catch (error: any) {
+    console.log("Could not get chain ID:", error?.message || "Unknown error");
     return null;
   }
 }
