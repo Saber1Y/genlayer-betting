@@ -56,7 +56,7 @@ export function AccountPanel() {
         userRejected("Connection cancelled");
       } else {
         error("Failed to connect wallet", {
-          description: err.message || "Check your MetaMask and try again."
+          description: err.message || "Check your MetaMask and try again.",
         });
       }
     } finally {
@@ -82,7 +82,7 @@ export function AccountPanel() {
       if (!err.message?.includes("rejected")) {
         setConnectionError(err.message || "Failed to switch account");
         error("Failed to switch account", {
-          description: err.message || "Please try again."
+          description: err.message || "Please try again.",
         });
       } else {
         userRejected("Account switch cancelled");
@@ -97,7 +97,7 @@ export function AccountPanel() {
     return (
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogTrigger asChild>
-          <Button variant="gradient" onClick={() => setIsModalOpen(true)}>
+          <Button variant="gradient" disabled={isLoading}>
             <User className="w-4 h-4 mr-2" />
             Connect Wallet
           </Button>
@@ -115,12 +115,16 @@ export function AccountPanel() {
           <div className="space-y-4 mt-4">
             {!isMetaMaskInstalled ? (
               <>
-                <Alert variant="default" className="bg-accent/10 border-accent/20">
+                <Alert
+                  variant="default"
+                  className="bg-accent/10 border-accent/20"
+                >
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>MetaMask Not Detected</AlertTitle>
                   <AlertDescription>
                     Please install MetaMask to continue. MetaMask is a crypto
-                    wallet that allows you to interact with blockchain applications.
+                    wallet that allows you to interact with blockchain
+                    applications.
                   </AlertDescription>
                 </Alert>
 
@@ -233,20 +237,21 @@ export function AccountPanel() {
                 }`}
               />
               <span className="text-sm">
-                {isOnCorrectNetwork
-                  ? "Connected to GenLayer"
-                  : "Wrong Network"}
+                {isOnCorrectNetwork ? "Connected to GenLayer" : "Wrong Network"}
               </span>
             </div>
           </div>
 
           {!isOnCorrectNetwork && (
-            <Alert variant="default" className="bg-yellow-500/10 border-yellow-500/20">
+            <Alert
+              variant="default"
+              className="bg-yellow-500/10 border-yellow-500/20"
+            >
               <AlertCircle className="h-4 w-4 text-yellow-500" />
               <AlertTitle>Network Warning</AlertTitle>
               <AlertDescription>
-                You&apos;re not on the GenLayer network. Please switch networks in
-                MetaMask or try reconnecting.
+                You&apos;re not on the GenLayer network. Please switch networks
+                in MetaMask or try reconnecting.
               </AlertDescription>
             </Alert>
           )}
