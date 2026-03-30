@@ -72,30 +72,6 @@ export function getEthereumProvider(): EthereumProvider | null {
 }
 
 /**
- * Request accounts from MetaMask
- * @returns Array of addresses
- */
-export async function requestAccounts(): Promise<string[]> {
-  const provider = getEthereumProvider();
-
-  if (!provider) {
-    throw new Error("MetaMask is not installed");
-  }
-
-  try {
-    const accounts = await provider.request({
-      method: "eth_requestAccounts",
-    });
-    return accounts;
-  } catch (error: any) {
-    if (error.code === 4001) {
-      throw new Error("User rejected the connection request");
-    }
-    throw new Error(`Failed to connect to MetaMask: ${error.message}`);
-  }
-}
-
-/**
  * Get current MetaMask accounts without requesting permission
  * @returns Array of addresses
  */
@@ -160,6 +136,16 @@ export async function requestAccounts(): Promise<string[]> {
     return [];
   }
 }
+
+/**
+ * Add GenLayer network to MetaMask
+ */
+export async function addGenLayerNetwork(): Promise<void> {
+  const provider = getEthereumProvider();
+
+  if (!provider) {
+    throw new Error("MetaMask is not installed");
+  }
 
   try {
     await provider.request({
